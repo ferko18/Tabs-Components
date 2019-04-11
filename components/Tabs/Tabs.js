@@ -1,20 +1,25 @@
-
+//STEP 4: build TabLink Class 
 class TabLink {
   constructor(element) {
     // Assign this.element to the passed in DOM element
-    // this.element;
+    this.element =element;
+    //test if the nodeList is passed on to the constructor**********************Firealem
+    //console.log(element)
     
     // Get the custom data attribute on the Link
-    // this.data;
+    this.data = this.element.dataset.tab;
+    //console.log(this.data) //check logs 1, 2, 4, 4
     
     // Using the custom data attribute get the associated Item element
-    // this.itemElement;
+     this.itemElement = document.querySelector(`.tabs-item[data-tab='${this.data}']`);
+     //console.log(this.itemElement)//logs in each tab item 
     
     // Using the Item element, create a new instance of the TabItem class
-    // this.tabItem;
+     this.tabItem = new TabItem(this.itemElement);
     
     // Add a click event listener on this instance, calling the select method on click
-
+    
+    this.element.addEventListener('click', () => this.select());
   };
 
   select() {
@@ -53,10 +58,26 @@ class TabItem {
 
 - Select all classes named ".tabs-link" and assign that value to the links variable
 
-- With your selection in place, now chain a .forEach() method onto the links variable to iterate over the DOM NodeList
+- With your selection in place, now chain a .forEach() method onto the links variable to iterate 
+over the DOM NodeList
 
-- In your .forEach() method's callback function, return a new instance of TabLink and pass in each link as a parameter
+- In your .forEach() method's callback function, return a new instance of TabLink and pass in each 
+link as a parameter
 
 */
 
-links = document.querySelectorAll();
+//Firealem 
+//STEP1: The items to be clicked*****************A node list of 4 items 
+links = document.querySelectorAll('.tabs-link');
+//console.log(links);
+
+//STEP 2: Iterate over the node list 
+//This is just to check the foreach loop
+/*links.forEach(currentValue => {
+     console.log(currentValue)
+});*/
+
+//STEP 3: return a new instance of TabLink for each iteration 
+links.forEach(currentValue => {
+  return new TabLink(currentValue)
+})
